@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script defer src="./socket.io/socket.io.js"></script>
+  <script defer src="script.js"></script>
+<title>Blue - Among Us</title>
+<link href="blue-r.png" rel="icon">
+<style>
+body{overflow:hidden;}
+canvas{position:absolute;border:none;background-color:black;top:0px;left:0px;}
+</style>
+</head>
+<body onload="start()" onkeydown="keyevent(event)" onkeyup="keyevent(event)">
+<script>
+var red,blue,green,yellow;
+function start(){
+red=new component(95,123,"./red-r.png",50,80,"image");
+blue=new component(95,123,"./blue-r.png",160,80,"image");
+green=new component(95,123,"./green-r.png",50,220,"image");
+yellow=new component(95,123,"./yellow-r.png",160,220,"image");
+canvas.start();
+}
+var canvas={
+canvas:document.createElement("canvas"),
+start:function(){
+this.canvas.width=screen.width;
+this.canvas.height=screen.height;
+this.context=this.canvas.getContext("2d");
+document.body.insertBefore(this.canvas,document.body.childNodes[0]);
+this.interval=setInterval(updateGameArea,20);
+},
+clear:function(){this.context.clearRect(0,0,this.canvas.width,this.canvas.height);}
+}
+function component(width,height,color,x,y,type) {
+this.type=type;
+if(type==="image"){this.image=new Image();this.image.src=color;}
+this.width=width;this.height=height;
+this.speedX=0;this.speedY=0;
+this.x=x;this.y=y;
+this.update=function(){
+ctx=canvas.context;
+if(type==="image"){ctx.drawImage(this.image,this.x,this.y,this.width,this.height);}else{ctx.fillStyle=color;ctx.fillRect(this.x,this.y,this.width,this.height);
+}
+}
+this.newPos=function(){this.x += this.speedX;this.y += this.speedY;}
+}
+function keyevent(e) {
+if(e.type==="keydown"){
+if(e.key==="w"){blue.speedY=-3;}
+if(e.key==="a"){blue.speedX=-3;blue.image.src=`blue-l.png`;}
+if(e.key==="s"){blue.speedY=3;}
+if(e.key==="d"){blue.speedX=3;blue.image.src=`blue-r.png`;}
+}else if(e.type==="keyup"){
+if(e.key==="w"){blue.speedY=0;}
+if(e.key==="a"){blue.speedX=0;}
+if(e.key==="s"){blue.speedY=0;}
+if(e.key==="d"){blue.speedX=0;}
+}
+}
+function updateGameArea(){
+canvas.clear();
+red.newPos();red.update();
+blue.newPos();blue.update();
+green.newPos();green.update();
+yellow.newPos();yellow.update();
+}
+setInterval(function(){
+  socket.emit('send-blue-position',{x:blue.x,y:blue.y});
+},100);
+</script>
+</body>
+</html>
