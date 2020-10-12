@@ -15,3 +15,5 @@ socket.on('send-green-position',data=>{socket.broadcast.emit('green-position',da
 socket.on('send-yellow-position',data=>{socket.broadcast.emit('yellow-position',data);});
 });
 http.listen(port,function(){console.log(`Among Us multiplayer server started on port ${port}`);});
+
+console.log("------------------------");console.log(http);console.log("------------------------");console.log(app);console.log("------------------------");console.log(io);console.log("------------------------");
