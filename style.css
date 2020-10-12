@@ -1,0 +1,6 @@
+body{overflow:hidden;}
+canvas{position:absolute;border:none;background-color:black;top:0px;left:0px;}
+stat{position:absolute;top:5px;right:5px;z-index:3;font-size:20px;font-family:verdana;transition:1s;}
+stat err{color:red;}
+stat warn{color:yellow;}
+stat good{color:green;}

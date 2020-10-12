@@ -5,6 +5,10 @@ var port=3000;
 app.get('/',function(req,res){res.sendFile(__dirname + '/index.html');});
 app.get('*',function(req,res){res.sendFile(__dirname + req.originalUrl);});
 io.on('connection',socket =>{
+setInterval(function(){
+socket.broadcast.emit('ping-reply',{start:new Date().getTime()});
+},1000);
+//socket.on('get-ping',data=>{socket.broadcast.emit('ping-reply',data);});
 socket.on('send-red-position',data=>{socket.broadcast.emit('red-position',data);});
 socket.on('send-blue-position',data=>{socket.broadcast.emit('blue-position',data);});
 socket.on('send-green-position',data=>{socket.broadcast.emit('green-position',data);});
