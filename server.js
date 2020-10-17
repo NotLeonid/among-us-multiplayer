@@ -1,7 +1,8 @@
 var app=require('express')();
+require('dotenv').config()
 var http=require('http').Server(app);
 var io=require('socket.io')(http);
-var port=80;
+var port=process.env.port;
 app.get('/',function(req,res){res.sendFile(__dirname + '/index.html');});
 app.get('*',function(req,res){if(!req.originalUrl.includes("?")){res.sendFile(__dirname + req.originalUrl);}});
 const users = {};
