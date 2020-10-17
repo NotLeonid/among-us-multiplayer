@@ -3,20 +3,30 @@
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <script defer src="./socket.io/socket.io.js"></script>
-  <script defer src="script.js"></script>
+<script defer src="script.js"></script>
 <title>Blue - Among Us</title>
 <link href="blue-r.png" rel="icon">
 <link href="style.css" rel="stylesheet">
 </head>
 <body onload="start()" onkeydown="keyevent(event)" onkeyup="keyevent(event)">
-  <stat id="stat"></stat>
-  <script>
-  var red,blue,green,yellow;
-  function start(){
-    document.getElementById("stat").innerHTML="<err>Server disconnected</err>";
-  setInterval(function(){
-    socket.emit("get-ping",{start:new Date().getTime(),id:socket.id});
+<stat id="stat"></stat>
+<button id="toggle-chat" onclick="document.getElementById('chat').classList=='opened'?document.getElementById('chat').classList='closed':document.getElementById('chat').classList='opened'">Toggle chat</button>
+<div id="chat" class="opened">
+<div id="messages"></div>
+<form id="message-form">
+<input type="text" id="message-input" placeholder="Message">
+<button type="submit" id="send-button">Send</button>
+</form>
+</div>
+<script>
+var red,blue,green,yellow;
+function start(){
+document.getElementById("stat").innerHTML="<err>Server disconnected</err>";
+var lastStat=document.getElementById("stat").innerHTML;
+setInterval(function(){
+socket.emit("get-ping",{start:new Date().getTime(),id:socket.id});
 },1000);
+socket.emit('new-user',`Blue`);
 red=new component(95,123,"./red-r.png",50,80,"image");
 blue=new component(95,123,"./blue-r.png",160,80,"image");
 green=new component(95,123,"./green-r.png",50,220,"image");
@@ -68,7 +78,7 @@ green.newPos();green.update();
 yellow.newPos();yellow.update();
 }
 setInterval(function(){
-  socket.emit('send-blue-position',{x:blue.x,y:blue.y});
+socket.emit('send-blue-position',{x:blue.x,y:blue.y});
 },100);
 </script>
 </body>

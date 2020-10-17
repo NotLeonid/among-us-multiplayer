@@ -1,6 +1,20 @@
-body{overflow:hidden;}
-canvas{position:absolute;border:none;background-color:black;top:0px;left:0px;}
-stat{position:absolute;top:5px;right:5px;z-index:3;font-size:20px;font-family:verdana;transition:1s;}
+*{outline:none;}
+body{background-color:black;overflow-x:hidden;}
+canvas{position:fixed;border:none;background-image:url(./map5.png);top:0px;left:0px;}
+stat{position:fixed;top:5px;right:5px;z-index:3;font-size:20px;font-family:verdana;transition:.3s;background-color:black;opacity:0.7;border-radius:5px;}
+stat:hover{opacity:1;}
 stat err{color:red;}
 stat warn{color:yellow;}
 stat good{color:green;}
+#messages{background-color:#444444;color:#AAAAAA;width:100%;font-family:arial;border:2px solid #DDDDDD;border-radius:5px;overflow-y:auto;overflow-x:hidden;}
+#message-form{position:fixed;bottom:0px;width:30%;display:flex;}
+#message-input{flex-grow:1;height:30px;color:orange;background-color:yellow;border:orange solid 2px;}
+#send-button{flex-grow:1;color:orange;background-color:yellow;border:orange solid 2px;border-left:0px;}
+#chat{transition:width 0.8s, opacity .3s;position:absolute;top:0px;right:0px;opacity:0.5;}
+#chat:hover{opacity:1;}
+#chat.opened{width:30%;}
+#chat.closed{width:3%;}
+#toggle-chat{transition:.3s;position:fixed;top:40px;right:10px;z-index:10;color:orange;background-color:yellow;border:orange solid 2px;opacity:0.7;border-radius:5px;}
+#toggle-chat:hover{color:yellow;background-color:orange;border:yellow solid 2px;opacity:1;}
+hr{text-align:center;width:90%;}
+::placeholder{opacity:0.5;}
