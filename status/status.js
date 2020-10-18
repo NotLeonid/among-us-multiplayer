@@ -1,4 +1,4 @@
-const socket=io("https://among-us-multiplayer.herokuapp.com");
+const socket=io("http://amongusmultiplayer.glitch.me");
 document.getElementById("stat").innerHTML="<err>Server disconnected</err>";
 socket.on('ping-reply',data=>{
 var h=setTimeout(";");
